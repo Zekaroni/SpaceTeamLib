@@ -37,6 +37,7 @@ class PiGUI:
             bg="misty rose"
         )
 
+        self._info_box_visible = False
         self._active_button_config_elements = []
         self._column_amount = 20 # This is beacause of the 20 pins on each row
         self._max_row_length = 30
@@ -191,15 +192,16 @@ class PiGUI:
             label_x = button.winfo_x() + button_width // 2 - self._info_box.winfo_reqwidth() // 2
             label_y = button.winfo_y() + button_height // 2 - self._info_box.winfo_reqheight() // 2
 
-            self._info_box.configure(takefocus=False, state="disabled")
             self._info_box.place(x=label_x, y=label_y)
             self._info_box.lift()
+            self._info_box_visible = True
         else:
             pass
         
     def _clear_info(self, event):
-        self._info_box.place_forget()
-        self._info_box.unbind_all()
+        if self._info_box_visible:
+            self._info_box.place_forget()
+            self._info_box_visible = False
 
     def run(self):
         self._parent.mainloop()
