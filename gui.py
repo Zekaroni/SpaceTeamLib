@@ -36,8 +36,7 @@ class PiGUI:
             self._main_frame,
             bg="misty rose"
         )
-
-        self._info_box = None
+        
         self._active_button_config_elements = []
         self._column_amount = 20 # This is beacause of the 20 pins on each row
         self._max_row_length = 30
