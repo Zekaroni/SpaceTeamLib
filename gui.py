@@ -181,18 +181,16 @@ class PiGUI:
 
     def _show_info(self, event, pin):
         if pin:
-            mouse_x = self._parent.winfo_pointerx() - self._parent.winfo_rootx()
-            mouse_y = self._parent.winfo_pointery() - self._parent.winfo_rooty()
+            mouse_x = self._parent.winfo_pointerx()
+            mouse_y = self._parent.winfo_pointery()
 
-            label_x = mouse_x + self._parent.winfo_x() + self._buttons[pin].winfo_x() + self._buttons[pin].winfo_width() // 2
-            label_y = mouse_y + self._parent.winfo_y() + self._buttons[pin].winfo_y() + self._buttons[pin].winfo_height() // 2
             self._info_box = tk.Label(
             self._popup_frame,
                 text="Info will pop up here",
                 bg="misty rose"
             )
             self._info_box.config(text=self._board._banned_pins[pin])
-            self._info_box.place(x=label_x,y=label_y)
+            self._info_box.place(x=mouse_x, y=mouse_y)
         else:
             pass
     
