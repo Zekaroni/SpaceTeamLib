@@ -36,7 +36,7 @@ class PiGUI:
             self._main_frame,
             bg="misty rose"
         )
-        
+
         self._active_button_config_elements = []
         self._column_amount = 20 # This is beacause of the 20 pins on each row
         self._max_row_length = 30
@@ -188,7 +188,7 @@ class PiGUI:
             mouse_y = event.y_root - self._parent.winfo_rooty()
 
             label_x = mouse_x - self._info_box.winfo_reqwidth() // 2
-            label_y = mouse_y + self._buttons[pin].winfo_height() // 2
+            label_y = mouse_y - self._info_box.winfo_reqheight() // 2
 
             self._info_box.place(x=label_x, y=label_y)
         else:
