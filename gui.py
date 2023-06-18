@@ -98,6 +98,7 @@ class PiGUI:
                 output_radio = tk.Radiobutton(
                     self._main_frame, 
                     text="On",
+                    bg=self._primary_colour,
                     variable=_state_var,
                     value=True,
                     command=lambda : self._change_state_of_pin(pin+1,True)
@@ -105,14 +106,15 @@ class PiGUI:
                 input_radio = tk.Radiobutton(
                     self._main_frame, 
                     text="Off",
+                    bg=self._primary_colour,
                     variable=_state_var,
                     value=False,
                     command=lambda : self._change_state_of_pin(pin+1,False)
                 )
             else:
                 pass
-            output_radio.grid(row=4, column=0, padx=5, pady=5)
-            input_radio.grid(row=5, column=0, padx=5, pady=5)
+            output_radio.grid(row=4, column=8, padx=5, pady=5)
+            input_radio.grid(row=5, column=8, padx=5, pady=5)
             
             self._active_button_config_elements.append(output_radio)
             self._active_button_config_elements.append(input_radio)
