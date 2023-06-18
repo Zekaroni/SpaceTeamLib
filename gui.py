@@ -69,7 +69,7 @@ class PiGUI:
             if pin in self._board.getBannedPins():
                 button.configure(state=tk.DISABLED, bg="red4")
 
-                button.bind("<Enter>", lambda x: self._show_info(x, pin))
+                button.bind("<Enter>", lambda event, p=pin: self._show_info(event, p))
                 button.bind("<Leave>", self._clear_info)
 
             else:
@@ -187,7 +187,6 @@ class PiGUI:
     def _show_info(self, event, pin):
         if pin:
             self._info_box.config(text=self._board._banned_pins[pin])
-            print("called")
         else:
             pass
     
