@@ -126,6 +126,9 @@ class Board:
         """"
         Resets all pins and cleans up
         """
+        for pin in self._active_pins:
+            if pin._output:
+                pin.turnOff()
         localGPIO.cleanup()
     
     @staticmethod
