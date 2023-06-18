@@ -12,7 +12,7 @@ class Pin:
         self._pin_number = pinNumber                                                # Assigns a local pin number based on passed pin number
         self._output = output                                                       # True is Ouput and False is Input
         self._parent = parent                                                       # Best not to mess with this, it is getting into nested classes
-        localGPIO.setup(pinNumber, localGPIO.OUTPUT if output else localGPIO.INPUT) # Sets up pin
+        localGPIO.setup(pinNumber, localGPIO.OUT if output else localGPIO.IN)       # Sets up pin
     
     def turnOn(self):
         """
