@@ -184,7 +184,7 @@ class PiGUI:
         self._board.cleanup()
         self._parent.destroy()
 
-    def _show_info(self, event, pin=False):
+    def _show_info(self, event, pin):
         if pin:
             self._info_box.config(text=self._board._banned_pins[pin])
             print("called")
