@@ -198,7 +198,8 @@ class PiGUI:
     
     def _clear_info(self, event):
         if self._info_box:
-            self._info_box.pop()
+            self._info_box.destroy()
+            self._info_box = None
 
     def run(self):
         self._parent.mainloop()
