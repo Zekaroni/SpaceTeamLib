@@ -65,6 +65,10 @@ class PiGUI:
 
             if pin in self._board.getBannedPins():
                 button.configure(state=tk.DISABLED, bg="red4")
+
+                button.bind("<Enter>", tk.messagebox.showinfo("Popup", self._board._banned_pins[pin]))
+                button.bind("<Leave>", tk.messagebox.clear())
+
             else:
                 button.configure(bg="orange")
 
