@@ -183,14 +183,13 @@ class PiGUI:
     def _show_info(self, event, pin):
         if pin:
             self._info_box.config(text=self._board._banned_pins[pin])
+            button = event.widget
 
-            button_x = self._buttons[pin].winfo_rootx() - self._parent.winfo_rootx()
-            button_y = self._buttons[pin].winfo_rooty() - self._parent.winfo_rooty()
-            button_width = self._buttons[pin].winfo_width()
-            button_height = self._buttons[pin].winfo_height()
+            button_width = button.winfo_width()
+            button_height = button.winfo_height()
 
-            label_x = button_x + button_width // 2 - self._info_box.winfo_reqwidth() // 2
-            label_y = button_y + button_height // 2 - self._info_box.winfo_reqheight() // 2
+            label_x = button.winfo_rootx() + button_width // 2 - self._info_box.winfo_reqwidth() // 2
+            label_y = button.winfo_rooty() + button_height // 2 - self._info_box.winfo_reqheight() // 2
 
             self._info_box.place(x=label_x, y=label_y)
         else:
