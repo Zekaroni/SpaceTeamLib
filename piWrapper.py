@@ -9,10 +9,10 @@ class Pin:
     Interfaces with the custom class Board made below.
     """
     def __init__(self, pinNumber: int, output: bool, parent: Board):
-        self._pin_number = pinNumber # Assigns a local pin number based on passed pin number
-        self._output = output # True is Ouput and False is Input
-        self._parent = parent # Best not to mess with this, it is getting into nested classes
-        # self.__check_parent_for_pin__()
+        self._pin_number = pinNumber                                                # Assigns a local pin number based on passed pin number
+        self._output = output                                                       # True is Ouput and False is Input
+        self._parent = parent                                                       # Best not to mess with this, it is getting into nested classes
+        localGPIO.setup(pinNumber, localGPIO.OUTPUT if output else localGPIO.INPUT) # Sets up pin
     
     def turnOn(self):
         """
@@ -58,7 +58,7 @@ class Board:
     """
     def __init__(self):
         localGPIO.setmode(localGPIO.BOARD) # This tells the API you are using pin number based on the physical board
-        localGPIO.setwarnings(False) # This just removes those annoying warning, no one likes those...
+        localGPIO.setwarnings(False)       # This just removes those annoying warning, no one likes those...
         self._banned_pins = {
             1 : "3.3V",
             2 : "5V" ,
@@ -86,8 +86,8 @@ class Board:
         pinNumber: int of the pin you wish to setup
         output: bool True for output, False for input
         """
-        if self.__check_pin_index__(pinNumber): pass # Checks to make sure pin number is a valid pin
-        if not self.__check_active_pin__(pinNumber): pass # Checks to make sure the pin isn't already active
+        if self.__check_pin_index__(pinNumber): pass                # Checks to make sure pin number is a valid pin
+        if not self.__check_active_pin__(pinNumber): pass           # Checks to make sure the pin isn't already active
 
         self._active_pins[pinNumber] = Pin(pinNumber, output, self) # Creates an object and stores it in the active pin dict
     
@@ -99,10 +99,10 @@ class Board:
         return: Pin object that can be stored in a variable and referenced to make things easier to use
         """
         if self.__check_pin_index__(pinNumber): pass # Checks to make sure pin number is a valid pin
-        if self.__check_active_pin__(pinNumber): # Checks if the pin is active
-            return self._active_pins[pinNumber] # Reuturns Pin object
+        if self.__check_active_pin__(pinNumber):     # Checks if the pin is active
+            return self._active_pins[pinNumber]      # Reuturns Pin object
         else:
-            raise ReferenceError("Pin not setup") # Thows an error if the pin isn't set up yey
+            raise ReferenceError("Pin not setup")    # Thows an error if the pin isn't set up yey
 
     def getBannedPins(self) -> list:
         """
