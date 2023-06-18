@@ -188,10 +188,11 @@ class PiGUI:
             button_width = button.winfo_width()
             button_height = button.winfo_height()
 
-            label_x = button.winfo_x() + button_width // 2 - self._info_box.winfo_reqwidth() // 2
-            label_y = button.winfo_y() + button_height // 2 - self._info_box.winfo_reqheight() // 2
+            label_x = button.winfo_rootx() + button_width // 2 - self._info_box.winfo_reqwidth() // 2
+            label_y = button.winfo_rooty() + button_height // 2 - self._info_box.winfo_reqheight() // 2
 
             self._info_box.place(x=label_x, y=label_y)
+            self._info_box.lift()
         else:
             pass
         
