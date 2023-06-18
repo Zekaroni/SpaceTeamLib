@@ -30,6 +30,7 @@ class PiGUI:
         self._main_frame.pack(fill=tk.BOTH, expand=True)  # Fill entire window
 
         self._popup_frame = tk.Frame(self._parent)
+        self._main_frame.pack()
 
         # Bind the Configure event of the parent window
         self._parent.bind("<Configure>", self._on_window_configure)
