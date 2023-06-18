@@ -12,7 +12,7 @@ class Pin:
         self._pin_number = pinNumber # Assigns a local pin number based on passed pin number
         self._output = output # True is Ouput and False is Input
         self._parent = parent # Best not to mess with this, it is getting into nested classes
-        self.__check_parent_for_pin__()
+        # self.__check_parent_for_pin__()
     
     def turnOn(self):
         """
