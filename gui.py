@@ -81,7 +81,7 @@ class PiGUI:
                 self._main_frame,
                 text=f"Now configuring pin {pin+1}",
                 bg = self._primary_colour
-            )
+        )
         label.grid(
             row=3 ,
             column=0,
@@ -93,19 +93,24 @@ class PiGUI:
 
         if pin+1 in self._board._active_pins.keys():
             _selected_option = self._board.pin(pin)._output
-
-            output_radio = tk.Radiobutton(
-                self._main_frame, 
-                text="Output",
-                variable=_selected_option,
-                value=True
-            )
-            input_radio = tk.Radiobutton(
-                self._main_frame, 
-                text="Input",
-                variable=_selected_option,
-                value=False
-            )
+            _on_state = tk.BooleanVar()
+            if _selected_option:
+                output_radio = tk.Radiobutton(
+                    self._main_frame, 
+                    text="Output",
+                    variable=_on_state,
+                    value=True,
+                    command=lambda : self._change_state_of_pin(pin,_on_state)
+                )
+                input_radio = tk.Radiobutton(
+                    self._main_frame, 
+                    text="Input",
+                    variable=_on_state,
+                    value=False,
+                    command=lambda : self._change_state_of_pin(pin,_on_state)
+                )
+            else:
+                pass
             output_radio.grid(row=4, column=0, padx=5, pady=5)
             input_radio.grid(row=5, column=0, padx=5, pady=5)
             
@@ -116,14 +121,14 @@ class PiGUI:
                 self._main_frame,
                 text= f"Setup pin {pin+1} for output",
                 bg = "lime green",
-                command=self._setup_pin(pin, True)
+                command=lambda : self._setup_pin(pin, True)
             )
             output_button.grid(row=4, column=5, columnspan=4)
             input_button = tk.Button(
                 self._main_frame,
                 text= f"Setup pin {pin+1} for input",
                 bg="cyan",
-                command=self._setup_pin(pin, False)
+                command=lambda : self._setup_pin(pin, False)
             )
             input_button.grid(row=4, column=8, columnspan=4)
             self._active_button_config_elements.append(output_button)
@@ -174,6 +179,11 @@ class PiGUI:
     def _setup_pin(self, pinNumber, output):
         self._board.setupPin(pinNumber+1, output)
         # self._config_selected_pin(pinNumber)
+    
+    def _change_state_of_pin(self, pinNumber, output):
+        localPin = self._board.pin(pinNumber)
+        if output: localPin.turnOn()
+        else: localPin.turnOff()
 
     def run(self):
         self._parent.mainloop()
