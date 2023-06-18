@@ -172,7 +172,7 @@ class PiGUI:
                 obj.configure(font=('Arial', max_font_size))
     
     def _setup_pin(self, pinNumber, output):
-        self._board.setupPin(pinNumber, output)
+        self._board.setupPin(pinNumber+1, output)
         self._config_selected_pin(pinNumber)
 
     def run(self):
