@@ -158,7 +158,7 @@ if __name__ == "__main__":
     pi = Board()
     pi.setupPin(3,True)
 
-    print(pi._active_pins)
+    print(pi._active_pins.keys())
 
     pin3 = pi.pin(3)
 
