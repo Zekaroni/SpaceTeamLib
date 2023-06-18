@@ -49,6 +49,7 @@ class Pin:
         """
         An internal check to see if the pin was set up properly
         """
+        print(self.parent._active_pins)
         if not self._pin_number in self._parent._active_pins: # Adds a redundant check for less points of failure
             raise ReferenceError("Pin is not setup [CALLED FROM PIN CLASS]")
 
