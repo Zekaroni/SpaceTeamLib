@@ -14,14 +14,14 @@ class Pin:
         self._parent = parent                                                       # Best not to mess with this, it is getting into nested classes
         localGPIO.setup(pinNumber, localGPIO.OUT if output else localGPIO.IN)       # Sets up pin
     
-    def turnOn(self):
+    def turnOn(self) -> None:
         """
         Turns the pin on, sets to HIGH/3.3V
         """
         if self._output:
             localGPIO.output(self._pin_number, localGPIO.HIGH)
 
-    def turnOff(self):
+    def turnOff(self) -> None:
         """
         Turns the pin off, sets to LOW/0V
         """
@@ -45,7 +45,7 @@ class Pin:
         """
         return self._pin_number
 
-    def __check_parent_for_pin__(self):
+    def __check_parent_for_pin__(self) -> None:
         """
         An internal check to see if the pin was set up properly
         """
@@ -112,11 +112,17 @@ class Board:
         """
         return list(self._banned_pins.keys())
 
-    def printBannedPins(self):
+    def printBannedPins(self) -> None:
         """
         Prints the banned pins and why they are banned
         """
         print(''.join([f"{pin}: {self._banned_pins[pin]}\n" for pin in self._banned_pins]))
+    
+    def cleanup(self) -> None:
+        """"
+        Resets all pins and cleans up
+        """
+        localGPIO.cleanup()
     
     @staticmethod
     def getCPUTemperature() -> str:
