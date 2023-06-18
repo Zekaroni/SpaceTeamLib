@@ -182,8 +182,8 @@ class PiGUI:
             mouse_x = self._parent.winfo_pointerx() - self._parent.winfo_rootx()
             mouse_y = self._parent.winfo_pointery() - self._parent.winfo_rooty()
 
-            label_x = mouse_x + self._parent.winfo_x() + self._button.winfo_x() + self._button.winfo_width() // 2
-            label_y = mouse_y + self._parent.winfo_y() + self._button.winfo_y() + self._button.winfo_height() // 2
+            label_x = mouse_x + self._parent.winfo_x() + self._buttons[pin].winfo_x() + self._buttons[pin].winfo_width() // 2
+            label_y = mouse_y + self._parent.winfo_y() + self._buttons[pin].winfo_y() + self._buttons[pin].winfo_height() // 2
             self._info_box = tk.Label(
             self._main_frame,
                 text="Info will pop up here",
