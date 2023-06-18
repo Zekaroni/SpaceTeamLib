@@ -79,13 +79,6 @@ class PiGUI:
             self._main_frame.columnconfigure(i, weight=1)
         for i in range(self._max_row_length):
             self._main_frame.columnconfigure(i, weight=1)
-        
-        self._info_box = tk.Label(
-            self._main_frame,
-            text="Info will pop up here",
-            bg="misty rose"
-        )
-        self._info_box.grid(row=3, column=16, columnspan=3, rowspan=3)
 
     def _config_selected_pin(self, pin):
         if self._active_button_config_elements:
@@ -186,12 +179,24 @@ class PiGUI:
 
     def _show_info(self, event, pin):
         if pin:
+            mouse_x = self._root.winfo_pointerx() - self._root.winfo_rootx()
+            mouse_y = self._root.winfo_pointery() - self._root.winfo_rooty()
+
+            label_x = mouse_x + self._root.winfo_x() + self._button.winfo_x() + self._button.winfo_width() // 2
+            label_y = mouse_y + self._root.winfo_y() + self._button.winfo_y() + self._button.winfo_height() // 2
+            self._info_box = tk.Label(
+            self._main_frame,
+                text="Info will pop up here",
+                bg="misty rose"
+            )
+            self._info_box.place(label_x,label_y)
             self._info_box.config(text=self._board._banned_pins[pin])
         else:
             pass
     
-    def _clear_info(sel, event):
-        pass
+    def _clear_info(self, event):
+        if self._info_box:
+            self._info_box.destroy()
 
     def run(self):
         self._parent.mainloop()
