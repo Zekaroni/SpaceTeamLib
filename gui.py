@@ -20,6 +20,7 @@ class PiGUI:
             self._parent.attributes('-zoomed', True)  # Linux
         except Exception:
             self._parent.state('zoomed')  # Windows, for debugging
+        self._parent.protocol("WM_DELETE_WINDOW", self._on_window_close())
 
         # Main frame
         self._main_frame = tk.Frame(self._parent)
@@ -163,6 +164,9 @@ class PiGUI:
         else:
             localPin.turnOff()
             self._buttons[40-pinNumber].configure(bg="red")
+
+    def _on_window_close(self):
+        self._board.cleanup()
 
     def run(self):
         self._parent.mainloop()
