@@ -32,6 +32,10 @@ class PiGUI:
         # Bind the Configure event of the parent window
         self._parent.bind("<Configure>", self._on_window_configure)
 
+        self._info_box = tk.Label(
+            self._main_frame,
+            bg="misty rose"
+        )
 
         self._info_box = None
         self._active_button_config_elements = []
