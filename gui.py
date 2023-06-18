@@ -93,21 +93,16 @@ class PiGUI:
 
         if pin+1 in self._board._active_pins.keys():
             _selected_option = self._board.pin(pin+1)._output
-            _on_state = tk.BooleanVar()
             if _selected_option:
                 output_radio = tk.Radiobutton(
                     self._main_frame, 
                     text="Output",
-                    variable=_on_state,
-                    value=True,
-                    command=lambda : self._change_state_of_pin(pin+1,_on_state)
+                    command=lambda : self._change_state_of_pin(pin+1,True)
                 )
                 input_radio = tk.Radiobutton(
                     self._main_frame, 
                     text="Input",
-                    variable=_on_state,
-                    value=False,
-                    command=lambda : self._change_state_of_pin(pin+1,_on_state)
+                    command=lambda : self._change_state_of_pin(pin+1,False)
                 )
             else:
                 pass
