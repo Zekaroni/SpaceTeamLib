@@ -192,7 +192,7 @@ class PiGUI:
                 bg="misty rose"
             )
             self._info_box.config(text=self._board._banned_pins[pin])
-            self._label.place(x=label_x, y=label_y)
+            self._info_box.place(x=label_x, y=label_y)
         else:
             pass
     
