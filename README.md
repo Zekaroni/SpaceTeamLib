@@ -88,10 +88,10 @@ myPin = board.pin(3) # This will return an object connected to pin 3.
 
 #### `getBannedPins() -> list`
 
-This function returns a list of all pins that are disable in the format of `int`. ([See why some pins are banned](#banned-pins))
+This function returns a list of all pins that are disabled in the format of `int`. ([See why some pins are banned.](#banned-pins))
 
 ```python
-banned_pins = board.getBannedPins()
+bannedPins = board.getBannedPins()
 ```
 
 #### `printBannedPins() -> None`
