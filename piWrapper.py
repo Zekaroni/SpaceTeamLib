@@ -158,6 +158,9 @@ if __name__ == "__main__":
     from time import sleep
     pi = Board()
     pi.setupPin(3,True)
+
+    print(pi._active_pins)
+
     pin3 = pi.pin(3)
 
     print(pin3.number())
