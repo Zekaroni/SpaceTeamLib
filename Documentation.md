@@ -4,9 +4,31 @@ This is a wrapper for the GPIO on the RaspberryPi Model 3 B's used by the BRCTC 
 
 ## Installation
 
-To install this package you can use `git clone https://github.com/Zekaroni/SpaceTeamLib.git` or download the library from `https://github.com/Zekaroni/SpaceTeamLib.git`.
+### Cloning the Repository
 
-NOTE: If you get and error when using `git` make sure you have `git` installed. If you don't, run the command `sudo apt install git`.
+To install this package by cloning the repository, follow these steps:
+
+1. Open a terminal.
+2. Run the following command to clone the repository:
+
+   ```
+   git clone https://github.com/Zekaroni/SpaceTeamLib.git
+   ```
+
+   This will create a local copy of the repository on your machine.
+
+3. Once the cloning process is complete, you can use the library in your projects by importing it.
+
+### Manual Download
+
+If you prefer to manually download the library, follow these steps:
+
+1. Visit the library's GitHub page at [https://github.com/Zekaroni/SpaceTeamLib.git](https://github.com/Zekaroni/SpaceTeamLib.git).
+2. Click on the "Code" button and select "Download ZIP" to download the repository as a ZIP file.
+3. Extract the downloaded ZIP file to a convenient location on your machine.
+4. Once the extraction is complete, you can use the library in your projects by importing it.
+
+Note: If you encounter any issues while using `git` for cloning, make sure you have `git` installed on your system. If it's not installed, you can install it by running the command `sudo apt install git` in the terminal.
 
 
 ## Usage
@@ -23,7 +45,8 @@ board = piWrapper.Board()
 
 #### `setupPin(pinNumber: int, output: bool) -> None`
 
-The function `setupPin` is used to initialize a pin for use with the Python script. Two arguments are needed when calling this function, `pinNumber` and `output`. The first one, `pinNumber`, it is the pin number that will be setup (as an `int`). The second one, `output`, is what decides if the pin is output or input; `True` will make the pin output, and `False` will make the pin input. Note that trying to set up a [banned pin](#banned-pins) will throw an error.
+The function `setupPin` is used to initialize a pin for use with the Python script. Two arguments are needed when calling this function, `pinNumber` and `output`. The first one, `pinNumber`, it is the pin number that will be setup (as an `int`). The second one, `output`, is what decides if the pin is output or input; `True` will make the pin output, and `False` will make the pin input. Output will allow you to set the pin `HIGH` or `LOW` ([more information](#high-and-low)), and input will allow you to monitor an read the current voltage being supplied to the pin.<br>
+Note that trying to set up a [banned pin](#banned-pins) will throw an error.
 
 ```python
 board.setupPin(3, True)  # Sets up pin 3 as Output.
@@ -131,31 +154,29 @@ pinNumber = myPin.number()
 ## Notes and Troubleshooting
 
 ### Banned Pins
-- Pins `1` and `17` are banned because they provide a 3.3V power supply, and -
-directly connecting them to other pins could cause issues such as short circuits or exceeding the maximum voltage rating of other components.
-- Pins `2`, `4`, and `27` are banned because they provide a 5V power supply, and similar reasons apply as for the 3.3V power supply.
-- Pins `6`, `9`, `14`, `20`, `25`, `30`, `34`, and `39` are banned because they are connected to the ground (GND), and using them for other purposes could result in unintended connections or short circuits.
-- Pins `28` and `27` are banned because they are connected to EEPROM (electrically erasable programmable read-only memory), which is used for storing configuration or data, and using them for other purposes could interfere with the EEPROM functionality.<br>
-Here is how it is stored in the code and reason beside it:
-```py
-{
-1 : "3.3V",
-2 : "5V" ,
-4 : "5V" ,
-6 : "Ground" ,
-9 : "Ground" ,
-14 : "Ground" ,
-17 : "3.3V" ,
-20 : "Ground" ,
-25 : "Ground" ,
-27 : "EEprom" ,
-28 : "EEprom" ,
-30 : "Ground" ,
-34 : "Ground" ,
-39 : "Ground" ,
-}
-```
-It is highly recommended to not to remove any of these from the banned list to avoid cause and damage or unwanted side effects to the Raspberry Pi's.
+
+The following pins are banned due to specific reasons:
+
+| Pin Number | Reason                      |
+|------------|-----------------------------|
+| 1          | Provides 3.3V power supply  |
+| 2          | Provides 5V power supply    |
+| 4          | Provides 5V power supply    |
+| 6          | Connected to ground (GND)   |
+| 9          | Connected to ground (GND)   |
+| 14         | Connected to ground (GND)   |
+| 17         | Provides 3.3V power supply  |
+| 20         | Connected to ground (GND)   |
+| 25         | Connected to ground (GND)   |
+| 27         | Connected to EEPROM         |
+| 28         | Connected to EEPROM         |
+| 30         | Connected to ground (GND)   |
+| 34         | Connected to ground (GND)   |
+| 39         | Connected to ground (GND)   |
+
+These pins are disabled and should not be used for other purposes. Using them for unintended connections or operations could result in short circuits, voltage exceedance, unintended interference, or other undesirable consequences.
+
+It is highly recommended to keep these pins in the banned list to prevent potential damage or unwanted side effects on the Raspberry Pi.
 
 ### `HIGH` and `LOW`
 When a pin is "high" it means it is outputting it's max voltage. In the case of the RaspberryPi's used by the Space Team, as well many other other microcontrollers, this voltage is 3.3V.<br>
