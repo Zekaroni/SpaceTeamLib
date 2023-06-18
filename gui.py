@@ -32,6 +32,8 @@ class PiGUI:
         # Bind the Configure event of the parent window
         self._parent.bind("<Configure>", self._on_window_configure)
 
+
+        self._info_box = None
         self._active_button_config_elements = []
         self._column_amount = 20 # This is beacause of the 20 pins on each row
         self._max_row_length = 30
@@ -67,8 +69,8 @@ class PiGUI:
             if pin in self._board.getBannedPins():
                 button.configure(state=tk.DISABLED, bg="red4")
 
-                button.bind("<Enter>", messagebox.showinfo("Popup", self._board._banned_pins[pin]))
-                button.bind("<Leave>", messagebox.clear())
+                button.bind("<Enter>", self._show_popup)
+                button.bind("<Leave>", self._clear_popup)
 
             else:
                 button.configure(bg="orange")
@@ -77,6 +79,13 @@ class PiGUI:
             self._main_frame.columnconfigure(i, weight=1)
         for i in range(self._max_row_length):
             self._main_frame.columnconfigure(i, weight=1)
+        
+        self._info_box = tk.Label(
+            self._main_frame,
+            text="Info will pop up here",
+            bg="misty rose"
+        )
+        self._info_box.grid(row=3, column=16, columnspan=3, rowspan=3)
 
     def _config_selected_pin(self, pin):
         if self._active_button_config_elements:
@@ -175,6 +184,14 @@ class PiGUI:
         self._board.cleanup()
         self._parent.destroy()
 
+    def _show_info(self, pin=False):
+        if pin:
+            self._info_box.config(text=self._board._banned_pins[pin])
+        else:
+            pass
+    
+    def _clear_info(self):
+        pass
 
     def run(self):
         self._parent.mainloop()
