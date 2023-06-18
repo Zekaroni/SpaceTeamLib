@@ -182,10 +182,6 @@ class PiGUI:
 
     def _show_info(self, event, pin):
         if pin:
-            def _restore_button_leave(self, event, button):
-            # Restore the button's original leave event
-                button.bind("<Leave>", self._clear_info)
-
             self._info_box.config(text=self._board._banned_pins[pin])
             button = event.widget
 
@@ -195,11 +191,8 @@ class PiGUI:
             label_x = button.winfo_x() + button_width // 2 - self._info_box.winfo_reqwidth() // 2
             label_y = button.winfo_y() + button_height // 2 - self._info_box.winfo_reqheight() // 2
 
-            self._info_box.bind("<Leave>", lambda event: _restore_button_leave(event, button))
-
-            # Disable the button's leave event temporarily
-            button.bind("<Leave>", lambda event: None)
-
+            self._info_box.bind("<Enter>", lambda : button.bind("<Leave>", lambda event: None))
+            self._info_box.bind("<Leave>", lambda : button.bind("<Leave>", self._clear_info))
 
             self._info_box.place(x=label_x, y=label_y)
             self._info_box.lift()
@@ -208,6 +201,7 @@ class PiGUI:
         
     def _clear_info(self, event):
         self._info_box.place_forget()
+        self._info_box.unbind_all()
 
     def run(self):
         self._parent.mainloop()
