@@ -179,27 +179,20 @@ class PiGUI:
 
     def _show_info(self, event, pin):
         if pin:
-            if not self._info_box:
-                self._info_box = tk.Label(
-                    self._main_frame,
-                    bg="misty rose"
-                )
-                self._info_box.config(text=self._board._banned_pins[pin])
+            self._info_box.config(text=self._board._banned_pins[pin])
 
-                mouse_x = event.x_root - self._parent.winfo_rootx()
-                mouse_y = event.y_root - self._parent.winfo_rooty()
+            mouse_x = event.x_root - self._parent.winfo_rootx()
+            mouse_y = event.y_root - self._parent.winfo_rooty()
 
-                label_x = mouse_x - self._info_box.winfo_reqwidth() // 2
-                label_y = mouse_y + self._buttons[pin].winfo_height() + 10
+            label_x = mouse_x - self._info_box.winfo_reqwidth() // 2
+            label_y = mouse_y + self._buttons[pin].winfo_height() // 2
 
-                self._info_box.place(x=label_x, y=label_y)
+            self._info_box.place(x=label_x, y=label_y)
         else:
             pass
         
-    
     def _clear_info(self, event):
-        if self._info_box:
-            self._info_box.destroy()
+        self._info_box.place_forget()
 
     def run(self):
         self._parent.mainloop()
