@@ -185,7 +185,7 @@ class PiGUI:
                 bg="misty rose"
             )
             self._info_box.config(text=self._board._banned_pins[pin])
-            self._info_box.place(x=self._buttons[pin].winfo_x(), y=self._buttons[pin].winfo_y())
+            self._info_box.place(x=-self._buttons[pin].winfo_x(), y=self._buttons[pin].winfo_y())
         else:
             pass
     
