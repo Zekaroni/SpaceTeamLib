@@ -29,9 +29,6 @@ class PiGUI:
         self._main_frame.config(bg=self._primary_colour)
         self._main_frame.pack(fill=tk.BOTH, expand=True)  # Fill entire window
 
-        self._popup_frame = tk.Frame(self._parent)
-        self._main_frame.pack()
-
         # Bind the Configure event of the parent window
         self._parent.bind("<Configure>", self._on_window_configure)
 
@@ -182,8 +179,12 @@ class PiGUI:
 
     def _show_info(self, event, pin):
         if pin:
-            mouse_x = self._parent.winfo_pointerx()
-            mouse_y = self._parent.winfo_pointery()
+            mouse_x = self._root.winfo_pointerx() - self._root.winfo_rootx()
+            mouse_y = self._root.winfo_pointery() - self._root.winfo_rooty()
+
+            label_x = mouse_x + self._root.winfo_x() + self._button.winfo_x() + self._button.winfo_width() // 2
+            label_y = mouse_y + self._root.winfo_y() + self._button.winfo_y() + self._button.winfo_height() // 2
+
 
             self._info_box = tk.Label(
             self._main_frame,
@@ -191,7 +192,7 @@ class PiGUI:
                 bg="misty rose"
             )
             self._info_box.config(text=self._board._banned_pins[pin])
-            self._info_box.place(x=mouse_x, y=mouse_y)
+            self._label.place(x=label_x, y=label_y)
         else:
             pass
     
