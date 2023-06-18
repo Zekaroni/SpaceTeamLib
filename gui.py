@@ -190,7 +190,7 @@ class PiGUI:
                 mouse_y = event.y_root - self._parent.winfo_rooty()
 
                 label_x = mouse_x - self._info_box.winfo_reqwidth() // 2
-                label_y = mouse_y - self._info_box.winfo_reqheight() // 2
+                label_y = mouse_y + self._buttons[pin].winfo_height() + 10
 
                 self._info_box.place(x=label_x, y=label_y)
         else:
