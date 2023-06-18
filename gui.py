@@ -168,6 +168,8 @@ class PiGUI:
 
     def _on_window_close(self):
         self._board.cleanup()
+        self._parent.destroy()
+
 
     def run(self):
         self._parent.mainloop()
