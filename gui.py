@@ -199,7 +199,7 @@ class PiGUI:
     
     def _clear_info(self, event):
         if self._info_box:
-            self._info_box = None
+            self._info_box.destroy()
 
     def run(self):
         self._parent.mainloop()
