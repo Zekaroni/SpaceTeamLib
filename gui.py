@@ -185,13 +185,16 @@ class PiGUI:
             )
             self._info_box.config(text=self._board._banned_pins[pin])
 
-            button_x = self._buttons[pin].winfo_rootx() - self._main_frame.winfo_rootx()
-            button_y = self._buttons[pin].winfo_rooty() - self._main_frame.winfo_rooty()
+            mouse_x = self._parent.winfo_pointerx() - self._parent.winfo_rootx()
+            mouse_y = self._parent.winfo_pointery() - self._parent.winfo_rooty()
+
+            button_x = self._buttons[pin].winfo_rootx() - self._parent.winfo_rootx()
+            button_y = self._buttons[pin].winfo_rooty() - self._parent.winfo_rooty()
             button_width = self._buttons[pin].winfo_width()
             button_height = self._buttons[pin].winfo_height()
 
-            label_x = button_x + button_width // 2 - self._info_box.winfo_reqwidth() // 2
-            label_y = button_y + button_height // 2 - self._info_box.winfo_reqheight() // 2
+            label_x = mouse_x - button_x - button_width // 2
+            label_y = mouse_y - button_y - button_height // 2
 
             self._info_box.place(x=label_x, y=label_y)
         else:
