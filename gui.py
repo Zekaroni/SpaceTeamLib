@@ -91,7 +91,7 @@ class PiGUI:
         )
         self._active_button_config_elements.append(label)
 
-        if pin in self._board._active_pins.keys():
+        if pin+1 in self._board._active_pins.keys():
             _selected_option = self._board.pin(pin)._output
 
             output_radio = tk.Radiobutton(
