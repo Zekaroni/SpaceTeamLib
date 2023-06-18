@@ -1,4 +1,4 @@
-import RPi.GPIO as __GPIO
+import RPi.GPIO as localGPIO
 
 class Board: # This is only here for my editor to not throw a defintion warning, ignore this
     pass
@@ -19,14 +19,14 @@ class Pin:
         Turns the pin on, sets to HIGH/3.3V
         """
         if self._output:
-            __GPIO.output(self._pin_number, __GPIO.HIGH)
+            localGPIO.output(self._pin_number, localGPIO.HIGH)
 
     def turnOff(self):
         """
         Turns the pin off, sets to LOW/0V
         """
         if self._output:
-            __GPIO.output(self._pin_number, __GPIO.LOW)
+            localGPIO.output(self._pin_number, localGPIO.LOW)
 
     def read(self) -> bool:
         """
@@ -35,7 +35,7 @@ class Pin:
         return: bool of pin state
         """
         if not self._output:
-            return __GPIO.input(self._pin_number)
+            return localGPIO.input(self._pin_number)
 
     def number(self) -> int:
         """
@@ -57,8 +57,8 @@ class Board:
     Idk what to put here, it's a board
     """
     def __init__(self):
-        # __GPIO.setmode(GPIO.BOARD) # This tells the API you are using pin number based on the physical board
-        # __GPIO.setwarnings(False) # This just removes those annoying warning, no one likes those...
+        # localGPIO.setmode(GPIO.BOARD) # This tells the API you are using pin number based on the physical board
+        # localGPIO.setwarnings(False) # This just removes those annoying warning, no one likes those...
         self._banned_pins = {
             1 : "3.3V",
             2 : "5V" ,
