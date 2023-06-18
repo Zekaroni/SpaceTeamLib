@@ -193,13 +193,18 @@ class PiGUI:
                 label_y = mouse_y - self._info_box.winfo_reqheight() // 2
 
                 self._info_box.place(x=label_x, y=label_y)
+                self._main_frame.bind("<Motion>", self._update_info_position)
         else:
             pass
+
+    def _update_info_position(self, event):
+        if self._info_box:
+            self._info_box.place(x=event.x_root, y=event.y_root)
+        
     
     def _clear_info(self, event):
         if self._info_box:
             self._info_box.destroy()
-            self._info_box = None
 
     def run(self):
         self._parent.mainloop()
