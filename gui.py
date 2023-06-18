@@ -185,8 +185,8 @@ class PiGUI:
             )
             self._info_box.config(text=self._board._banned_pins[pin])
 
-            button_x = self._buttons[pin].winfo_x()
-            button_y = self._buttons[pin].winfo_y()
+            button_x = self._buttons[pin].winfo_rootx() - self._main_frame.winfo_rootx()
+            button_y = self._buttons[pin].winfo_rooty() - self._main_frame.winfo_rooty()
             button_width = self._buttons[pin].winfo_width()
             button_height = self._buttons[pin].winfo_height()
 
