@@ -243,7 +243,7 @@ These are some errors I think might be common when first working with this wrapp
 
 ### Example Code
 (NOTE: This was all written while writing this document, meaning it is untested but should work in theory. Ask me if something isn't working when referencing this code.)<br><br>
-This code is an example of how to make an LED flash on and off until stopped (use `CTRL+C` to kill any running task, this is know as a `KeyboardInterrupt`). First connect and led to pin 3, and then connect it to a ground pin on the RaspberryPi.
+This code is an example of how to make an LED flash on and off until stopped (use `CTRL+C` to kill any running task, this is know as a `KeyboardInterrupt`). First connect an led to pin 3, and then connect it to a ground pin on the RaspberryPi.
 ```py
 from piWrapper import Board # Imports only Board from piWrapper
 # I reccomend doing it this way each time to avoid crowding the global variables
