@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from piWrapper import Board
 
 class PiGUI:
@@ -66,8 +67,8 @@ class PiGUI:
             if pin in self._board.getBannedPins():
                 button.configure(state=tk.DISABLED, bg="red4")
 
-                button.bind("<Enter>", tk.messagebox.showinfo("Popup", self._board._banned_pins[pin]))
-                button.bind("<Leave>", tk.messagebox.clear())
+                button.bind("<Enter>", messagebox.showinfo("Popup", self._board._banned_pins[pin]))
+                button.bind("<Leave>", messagebox.clear())
 
             else:
                 button.configure(bg="orange")
