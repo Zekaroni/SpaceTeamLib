@@ -29,6 +29,8 @@ class PiGUI:
         self._main_frame.config(bg=self._primary_colour)
         self._main_frame.pack(fill=tk.BOTH, expand=True)  # Fill entire window
 
+        self._popup_frame = tk.Frame(self._parent)
+
         # Bind the Configure event of the parent window
         self._parent.bind("<Configure>", self._on_window_configure)
 
@@ -185,12 +187,12 @@ class PiGUI:
             label_x = mouse_x + self._parent.winfo_x() + self._buttons[pin].winfo_x() + self._buttons[pin].winfo_width() // 2
             label_y = mouse_y + self._parent.winfo_y() + self._buttons[pin].winfo_y() + self._buttons[pin].winfo_height() // 2
             self._info_box = tk.Label(
-            self._main_frame,
+            self._popup_frame,
                 text="Info will pop up here",
                 bg="misty rose"
             )
-            self._info_box.place(label_x,label_y)
             self._info_box.config(text=self._board._banned_pins[pin])
+            self._info_box.place(label_x,label_y)
         else:
             pass
     
