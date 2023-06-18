@@ -92,7 +92,7 @@ class PiGUI:
         )
         self._active_button_config_elements.append(label)
 
-        if pin+1 in self._board._active_pins.keys():
+        if self._board.__check_active_pin__(pin+1):
             _selected_option = self._board.pin(pin+1)._output
             _state_var = tk.BooleanVar(value=False)
             if _selected_option:
@@ -167,7 +167,6 @@ class PiGUI:
 
     def _on_window_close(self):
         self._board.cleanup()
-        print(self._board._active_pins)
 
     def run(self):
         self._parent.mainloop()
