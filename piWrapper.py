@@ -8,7 +8,7 @@ class Pin:
     Creates a class for a pin using the GPIO library.
     Interfaces with the custom class Board made below.
     """
-    def __init__(self, pinNumber: int, output: bool,parent: Board):
+    def __init__(self, pinNumber: int, output: bool, parent: Board):
         self._pin_number = pinNumber # Assigns a local pin number based on passed pin number
         self._output = output # True is Ouput and False is Input
         self._parent = parent # Best not to mess with this, it is getting into nested classes
