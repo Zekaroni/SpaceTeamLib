@@ -22,7 +22,7 @@ This is a wrapper for the GPIO on the RaspberryPi Model 3 B's used by the BRCTC 
 - [Notes and Troubleshooting](#notes-and-troubleshooting)
   - [Banned Pins](#banned-pins)
   - [HIGH and LOW](#high-and-low)
-  - [Initializing `Board`](#initializing-board)
+  - [Initializing Board](#initializing-board)
   - [Common Errors](#common-errors)
   - [Example Code](#example-code)
 
