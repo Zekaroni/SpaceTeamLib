@@ -191,9 +191,7 @@ class PiGUI:
             label_x = button.winfo_x() + button_width // 2 - self._info_box.winfo_reqwidth() // 2
             label_y = button.winfo_y() + button_height // 2 - self._info_box.winfo_reqheight() // 2
 
-            self._info_box.bind("<Enter>", lambda : button.bind("<Leave>", lambda event: None))
-            self._info_box.bind("<Leave>", lambda : button.bind("<Leave>", self._clear_info))
-
+            self._info_box.configure(takefocus=False, state="disabled")
             self._info_box.place(x=label_x, y=label_y)
             self._info_box.lift()
         else:
