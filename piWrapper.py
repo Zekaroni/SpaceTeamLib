@@ -1,4 +1,4 @@
-import RPi.GPIO as __GPIO
+import RPi.GPIO as localGPIO
 
 class Board: # This is only here for my editor to not throw a defintion warning, ignore this
     pass
@@ -8,25 +8,25 @@ class Pin:
     Creates a class for a pin using the GPIO library.
     Interfaces with the custom class Board made below.
     """
-    def __init__(self, pinNumber: int, output: bool,parent: Board):
-        self._pin_number = pinNumber # Assigns a local pin number based on passed pin number
-        self._output = output # True is Ouput and False is Input
-        self._parent = parent # Best not to mess with this, it is getting into nested classes
-        self.__check_parent_for_pin__()
+    def __init__(self, pinNumber: int, output: bool, parent: Board):
+        self._pin_number = pinNumber                                                # Assigns a local pin number based on passed pin number
+        self._output = output                                                       # True is Ouput and False is Input
+        self._parent = parent                                                       # Best not to mess with this, it is getting into nested classes
+        localGPIO.setup(pinNumber, localGPIO.OUT if output else localGPIO.IN)       # Sets up pin
     
-    def turnOn(self):
+    def turnOn(self) -> None:
         """
         Turns the pin on, sets to HIGH/3.3V
         """
         if self._output:
-            __GPIO.output(self._pin_number, __GPIO.HIGH)
+            localGPIO.output(self._pin_number, localGPIO.HIGH)
 
-    def turnOff(self):
+    def turnOff(self) -> None:
         """
         Turns the pin off, sets to LOW/0V
         """
         if self._output:
-            __GPIO.output(self._pin_number, __GPIO.LOW)
+            localGPIO.output(self._pin_number, localGPIO.LOW)
 
     def read(self) -> bool:
         """
@@ -35,7 +35,7 @@ class Pin:
         return: bool of pin state
         """
         if not self._output:
-            return __GPIO.input(self._pin_number)
+            return localGPIO.input(self._pin_number)
 
     def number(self) -> int:
         """
@@ -45,12 +45,11 @@ class Pin:
         """
         return self._pin_number
 
-    def __check_parent_for_pin__(self):
+    def __check_parent_for_pin__(self) -> None:
         """
         An internal check to see if the pin was set up properly
         """
-        print(self.parent._active_pins)
-        if not self._pin_number in self._parent._active_pins: # Adds a redundant check for less points of failure
+        if not self._pin_number in self._parent._active_pins.keys(): # Adds a redundant check for less points of failure
             raise ReferenceError("Pin is not setup [CALLED FROM PIN CLASS]")
 
 class Board:
@@ -58,8 +57,8 @@ class Board:
     Idk what to put here, it's a board
     """
     def __init__(self):
-        # __GPIO.setmode(GPIO.BOARD) # This tells the API you are using pin number based on the physical board
-        # __GPIO.setwarnings(False) # This just removes those annoying warning, no one likes those...
+        localGPIO.setmode(localGPIO.BOARD) # This tells the API you are using pin number based on the physical board
+        localGPIO.setwarnings(False)       # This just removes those annoying warning, no one likes those...
         self._banned_pins = {
             1 : "3.3V",
             2 : "5V" ,
@@ -87,8 +86,8 @@ class Board:
         pinNumber: int of the pin you wish to setup
         output: bool True for output, False for input
         """
-        if self.__check_pin_index__(pinNumber): pass # Checks to make sure pin number is a valid pin
-        if not self.__check_active_pin__(pinNumber): pass # Checks to make sure the pin isn't already active
+        if self.__check_pin_index__(pinNumber): pass                # Checks to make sure pin number is a valid pin
+        if not self.__check_active_pin__(pinNumber): pass           # Checks to make sure the pin isn't already active
 
         self._active_pins[pinNumber] = Pin(pinNumber, output, self) # Creates an object and stores it in the active pin dict
     
@@ -100,10 +99,10 @@ class Board:
         return: Pin object that can be stored in a variable and referenced to make things easier to use
         """
         if self.__check_pin_index__(pinNumber): pass # Checks to make sure pin number is a valid pin
-        if self.__check_active_pin__(pinNumber): # Checks if the pin is active
-            return self._active_pins[pinNumber] # Reuturns Pin object
+        if self.__check_active_pin__(pinNumber):     # Checks if the pin is active
+            return self._active_pins[pinNumber]      # Reuturns Pin object
         else:
-            raise ReferenceError("Pin not setup") # Thows an error if the pin isn't set up yey
+            raise ReferenceError("Pin not setup")    # Thows an error if the pin isn't set up yey
 
     def getBannedPins(self) -> list:
         """
@@ -113,11 +112,17 @@ class Board:
         """
         return list(self._banned_pins.keys())
 
-    def printBannedPins(self):
+    def printBannedPins(self) -> None:
         """
         Prints the banned pins and why they are banned
         """
         print(''.join([f"{pin}: {self._banned_pins[pin]}\n" for pin in self._banned_pins]))
+    
+    def cleanup(self) -> None:
+        """"
+        Resets all pins and cleans up
+        """
+        localGPIO.cleanup()
     
     @staticmethod
     def getCPUTemperature() -> str:
@@ -158,6 +163,9 @@ if __name__ == "__main__":
     from time import sleep
     pi = Board()
     pi.setupPin(3,True)
+
+    print(pi._active_pins.keys())
+
     pin3 = pi.pin(3)
 
     print(pin3.number())
