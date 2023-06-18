@@ -166,8 +166,8 @@ class PiGUI:
             self._buttons[40-pinNumber].configure(bg="red")
 
     def _on_window_close(self):
-        print("Closed successful")
         self._board.cleanup()
+        print(self._board._active_pins)
 
     def run(self):
         self._parent.mainloop()

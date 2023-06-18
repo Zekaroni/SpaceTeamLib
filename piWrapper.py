@@ -124,7 +124,7 @@ class Board:
     
     def cleanup(self) -> None:
         """"
-        Resets all pins and cleans up
+        Resets all pins to low and cleans up
         """
         for pin in self._active_pins:
             if pin._output:
