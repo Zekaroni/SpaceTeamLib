@@ -162,7 +162,7 @@ class PiGUI:
             self._buttons[pinNumber-1].configure(bg="lime green")
         else:
             localPin.turnOff()
-            self._buttons[pinNumber-1].configure(bg="red")
+            self._buttons[40-(pinNumber-1)].configure(bg="red")
 
     def run(self):
         self._parent.mainloop()
