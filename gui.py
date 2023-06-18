@@ -187,6 +187,7 @@ class PiGUI:
     def _show_info(self, event, pin=False):
         if pin:
             self._info_box.config(text=self._board._banned_pins[pin])
+            print("called")
         else:
             pass
     
