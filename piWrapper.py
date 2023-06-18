@@ -1,6 +1,6 @@
 import RPi.GPIO as localGPIO
 
-class Board: # This is only here for my editor to not throw a defintion warning, ignore this
+class Board: # This is here to not throw a defintion error, ignore this
     pass
 
 class Pin:
