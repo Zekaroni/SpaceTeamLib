@@ -186,7 +186,7 @@ class PiGUI:
             mouse_y = self._parent.winfo_pointery()
 
             self._info_box = tk.Label(
-            self._popup_frame,
+            self._main_frame,
                 text="Info will pop up here",
                 bg="misty rose"
             )
