@@ -173,7 +173,7 @@ class PiGUI:
     
     def _setup_pin(self, pinNumber, output):
         self._board.setupPin(pinNumber+1, output)
-        self._config_selected_pin(pinNumber)
+        # self._config_selected_pin(pinNumber)
 
     def run(self):
         self._parent.mainloop()
