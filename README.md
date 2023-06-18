@@ -2,6 +2,31 @@
 
 This is a wrapper for the GPIO on the RaspberryPi Model 3 B's used by the BRCTC Space Team.
 
+## Table of Contents
+- [Installation](#installation)
+  - [Cloning the Repository](#cloning-the-repository)
+  - [Manual Download](#manual-download)
+- [Usage](#usage)
+  - [`Board`](#board)
+    - [`setupPin`](#setuppinpinnumber-int-output-bool---none)
+    - [`pin`](#pinpinnumber-int---pin)
+    - [`getBannedPins`](#getbannedpins---list)
+    - [`printBannedPins`](#printbannedpins---none)
+    - [`getCPUTemperature`](#getcputemperature---str)
+    - [`cleanup`](#cleanup---none)
+  - [`Pin`](#pin-1)
+    - [`turnOn`](#turnon---none)
+    - [`turnOff`](#turnoff---none)
+    - [`read`](#read---bool)
+    - [`number`](#number---int)
+- [Notes and Troubleshooting](#notes-and-troubleshooting)
+  - [Banned Pins](#banned-pins)
+  - [HIGH and LOW](#high-and-low)
+  - [Initializing `Board`](#initializing-board)
+  - [Common Errors](#common-errors)
+  - [Example Code](#example-code)
+
+
 ## Installation
 
 ### Cloning the Repository
