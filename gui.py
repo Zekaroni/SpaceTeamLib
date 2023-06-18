@@ -180,12 +180,20 @@ class PiGUI:
     def _show_info(self, event, pin):
         if pin:
             self._info_box = tk.Label(
-            self._main_frame,
-                text="Info will pop up here",
+                self._main_frame,
                 bg="misty rose"
             )
             self._info_box.config(text=self._board._banned_pins[pin])
-            self._info_box.place(x=self._buttons[pin].winfo_rootx(), y=self._buttons[pin].winfo_rooty())
+
+            button_x = self._buttons[pin].winfo_x()
+            button_y = self._buttons[pin].winfo_y()
+            button_width = self._buttons[pin].winfo_width()
+            button_height = self._buttons[pin].winfo_height()
+
+            label_x = button_x + button_width // 2 - self._info_box.winfo_reqwidth() // 2
+            label_y = button_y + button_height // 2 - self._info_box.winfo_reqheight() // 2
+
+            self._info_box.place(x=label_x, y=label_y)
         else:
             pass
     
