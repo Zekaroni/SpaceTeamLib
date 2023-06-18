@@ -57,8 +57,8 @@ class Board:
     Idk what to put here, it's a board
     """
     def __init__(self):
-        # localGPIO.setmode(GPIO.BOARD) # This tells the API you are using pin number based on the physical board
-        # localGPIO.setwarnings(False) # This just removes those annoying warning, no one likes those...
+        localGPIO.setmode(GPIO.BOARD) # This tells the API you are using pin number based on the physical board
+        localGPIO.setwarnings(False) # This just removes those annoying warning, no one likes those...
         self._banned_pins = {
             1 : "3.3V",
             2 : "5V" ,
