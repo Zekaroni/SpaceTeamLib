@@ -126,7 +126,7 @@ class PiGUI:
                     self._main_frame, 
                     text="On",
                     bg=self._primary_colour,
-                    variable=self._button_states[pin].get(),
+                    variable=self._button_states[pin],
                     value=True,
                     command=lambda p=pin: self._change_state_of_pin(p,True)
                 )
