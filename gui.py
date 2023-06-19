@@ -46,7 +46,7 @@ class PiGUI:
         self._buttons = []
         self._button_states = [] # Button states
         for _ in range(40):
-            self._button_states.appned(tk.BooleanVar(value=False))
+            self._button_states.append(tk.BooleanVar(value=False))
         self._current_pressed_button = None
         self._init_main_widgets() # Creates all the main widgets
 
