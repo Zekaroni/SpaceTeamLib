@@ -46,13 +46,13 @@ class PiGUI:
         self._buttons = []
         self._button_states = {} # Button states
         self._current_pressed_button = None
-        self._create_buttons() # Create buttons for each pin
+        self._init_main_widgets() # Creates all the main widgets
 
     def _on_window_configure(self, event):
         # Update font size when the window is resized
         self._update_font()
 
-    def _create_buttons(self):
+    def _init_main_widgets(self):
         # Create buttons for each pin
         num_pins = 40
         max_pin_label_length = len(str(num_pins))  # Calculate the length of the longest pin label
@@ -85,6 +85,14 @@ class PiGUI:
             self._main_frame.columnconfigure(i, weight=1)
         for i in range(self._max_row_length):
             self._main_frame.columnconfigure(i, weight=1)
+        
+        self._pin_states_label = tk.Label(
+            self._main_frame,
+            text="",
+            width=20,
+            height=5
+        )
+        self._pin_states_label.grid(row=3, column=17, columnspan=3, rowspan=20)
 
     def _config_selected_pin(self, pin):
         if self._active_button_config_elements:
@@ -205,6 +213,10 @@ class PiGUI:
         
     def _clear_info(self, event):
         self._info_box.place_forget()
+    
+    def _display_pin_states(self):
+
+        self._pin_states_label.after(100, self._display_pin_states)
 
     def run(self):
         self._parent.mainloop()
