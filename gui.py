@@ -11,7 +11,7 @@ class PiGUI:
         
         # Colours and fonts
         self._primary_colour = "grey"
-        self._secondary_colour = "light grey"
+        self._secondary_colour = "salmon"
         self._primary_font = ('', 40)
         self._secondary_font = ('', 30)
 
@@ -91,7 +91,8 @@ class PiGUI:
             text="",
             bg=self._secondary_colour,
             width=20,
-            height=80
+            height=80,
+            anchor="n"
         )
         self._pin_states_label.grid(row=3, column=17, columnspan=3, rowspan=20)
 
