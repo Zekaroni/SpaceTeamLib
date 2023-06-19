@@ -193,7 +193,7 @@ class PiGUI:
             self._buttons[39-pinNumber].configure(bg="red")
     
     def _ready_pin_for_input(self, pinNumber):
-        self._button[pinNumber].configure(bg="aquamarine")
+        self._buttons[pinNumber].configure(bg="aquamarine")
 
     def _on_window_close(self):
         self._board.cleanup()
