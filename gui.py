@@ -11,7 +11,7 @@ class PiGUI:
         
         # Colours and fonts
         self._primary_colour = "grey"
-        self._secondary_colour = "salmon"
+        self._secondary_colour = "navajo white"
         self._primary_font = ('', 40)
         self._secondary_font = ('', 30)
 
@@ -91,7 +91,7 @@ class PiGUI:
             text="",
             bg=self._secondary_colour,
             width=20,
-            height=80,
+            height=40,
             anchor="n"
         )
         self._pin_states_label.grid(row=3, column=17, columnspan=3, rowspan=20)
@@ -159,7 +159,7 @@ class PiGUI:
             input_button = tk.Button(
                 self._main_frame,
                 text= f"Setup pin {pin+1} for input",
-                bg="cyan",
+                bg="aquamarine",
                 command=lambda p=pin: self._setup_pin(p, False)
             )
             input_button.grid(row=4, column=8, columnspan=4)
@@ -197,7 +197,7 @@ class PiGUI:
     def _ready_pin_for_input(self, pinNumber):
         self._buttons[39-pinNumber].configure(bg="aquamarine")
         self._pin_states_label.config(
-            text=f"Pin {pinNumber} -> Input : null"
+            text=f"Pin {pinNumber+1} -> Input : null"
         )
 
     def _on_window_close(self):
