@@ -89,8 +89,9 @@ class PiGUI:
         self._pin_states_label = tk.Label(
             self._main_frame,
             text="",
+            bg=self._secondary_colour,
             width=20,
-            height=5
+            height=80
         )
         self._pin_states_label.grid(row=3, column=17, columnspan=3, rowspan=20)
 
