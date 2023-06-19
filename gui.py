@@ -178,10 +178,10 @@ class PiGUI:
         localPin = self._board.pin(pinNumber+1)
         if output:
             localPin.turnOn()
-            self._buttons[40-pinNumber].configure(bg="lime green")
+            self._buttons[39-pinNumber].configure(bg="lime green")
         else:
             localPin.turnOff()
-            self._buttons[40-pinNumber].configure(bg="red")
+            self._buttons[39-pinNumber].configure(bg="red")
 
     def _on_window_close(self):
         self._board.cleanup()
