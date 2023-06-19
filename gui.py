@@ -143,6 +143,8 @@ class PiGUI:
                 self._active_button_config_elements.append(off_radio)
             else:
                 # Input
+                self._ready_pin_for_input(pin)
+                # TODO: Make a label that shows the current value 
                 pass
         else:
             output_button = tk.Button(
@@ -189,6 +191,9 @@ class PiGUI:
         else:
             localPin.turnOff()
             self._buttons[39-pinNumber].configure(bg="red")
+    
+    def _ready_pin_for_input(self, pinNumber):
+        self._button[pinNumber].configure(bg="aquamarine")
 
     def _on_window_close(self):
         self._board.cleanup()
