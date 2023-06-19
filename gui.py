@@ -44,7 +44,9 @@ class PiGUI:
         self._column_amount = 20 # This is beacause of the 20 pins on each row
         self._max_row_length = 30
         self._buttons = []
-        self._button_states = {} # Button states
+        self._button_states = [] # Button states
+        for _ in range(40):
+            self._button_states.appned(tk.BooleanVar(value=False))
         self._current_pressed_button = None
         self._init_main_widgets() # Creates all the main widgets
 
@@ -120,12 +122,11 @@ class PiGUI:
             _selected_option = self._board.pin(pin+1)._output
             if _selected_option:
                 # Output
-                self._state_var = tk.BooleanVar(value=False)
                 on_radio = tk.Radiobutton(
                     self._main_frame, 
                     text="On",
                     bg=self._primary_colour,
-                    variable=self._state_var,
+                    variable=self._button_states[pin],
                     value=True,
                     command=lambda p=pin: self._change_state_of_pin(p,True)
                 )
@@ -133,7 +134,7 @@ class PiGUI:
                     self._main_frame, 
                     text="Off",
                     bg=self._primary_colour,
-                    variable=self._state_var,
+                    variable=self._button_states[pin],
                     value=False,
                     command=lambda p=pin: self._change_state_of_pin(p,False)
                 )
