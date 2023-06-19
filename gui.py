@@ -109,24 +109,24 @@ class PiGUI:
 
             if self._board.__check_active_pin__(pin+1):
                 _selected_option = self._board.pin(pin+1)._output
-                _state_var = tk.BooleanVar(value=False)
                 if _selected_option:
                     # Output
+                    self._state_var = tk.BooleanVar(value=False)
                     on_radio = tk.Radiobutton(
                         self._main_frame, 
                         text="On",
                         bg=self._primary_colour,
-                        variable=_state_var,
+                        variable=self._state_var,
                         value=True,
-                        command=lambda : self._change_state_of_pin(pin+1,True)
+                        command=lambda p=pin: self._change_state_of_pin(p+1,True)
                     )
                     off_radio = tk.Radiobutton(
                         self._main_frame, 
                         text="Off",
                         bg=self._primary_colour,
-                        variable=_state_var,
+                        variable=self._state_var,
                         value=False,
-                        command=lambda : self._change_state_of_pin(pin+1,False)
+                        command=lambda p=pin: self._change_state_of_pin(p+1,False)
                     )
                     on_radio.grid(row=4, column=8, padx=5, pady=5)
                     off_radio.grid(row=5, column=8, padx=5, pady=5)
@@ -141,14 +141,14 @@ class PiGUI:
                     self._main_frame,
                     text= f"Setup pin {pin+1} for output",
                     bg = "red",
-                    command=lambda : self._setup_pin(pin, True)
+                    command=lambda p=pin: self._setup_pin(p+1, True)
                 )
                 output_button.grid(row=4, column=5, columnspan=4)
                 input_button = tk.Button(
                     self._main_frame,
                     text= f"Setup pin {pin+1} for input",
                     bg="cyan",
-                    command=lambda : self._setup_pin(pin, False)
+                    command=lambda p=pin: self._setup_pin(p+1, False)
                 )
                 input_button.grid(row=4, column=8, columnspan=4)
                 self._active_button_config_elements.append(output_button)
