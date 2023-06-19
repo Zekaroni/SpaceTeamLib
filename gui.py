@@ -38,6 +38,7 @@ class PiGUI:
         )
 
         self._active_button_config_elements = []
+        self._active_pin_selected = 0
         self._column_amount = 20 # This is beacause of the 20 pins on each row
         self._max_row_length = 30
         self._buttons = []
@@ -84,69 +85,74 @@ class PiGUI:
             self._main_frame.columnconfigure(i, weight=1)
 
     def _config_selected_pin(self, pin):
-        if self._active_button_config_elements:
-            for obj in self._active_button_config_elements:
-                obj.destroy()
-            self._active_button_config_elements.clear()
+        if self._active_pin_selected != pin:
+            if self._active_button_config_elements:
+                for obj in self._active_button_config_elements:
+                    obj.destroy()
+                self._active_button_config_elements.clear()
 
-        label = tk.Label(
-                self._main_frame,
-                text=f"Now configuring pin {pin+1}",
-                bg = self._primary_colour
-        )
-        label.grid(
-            row=3 ,
-            column=0,
-            columnspan=self._column_amount-3,
-            padx=3,
-            pady=30
-        )
-        self._active_button_config_elements.append(label)
+            label = tk.Label(
+                    self._main_frame,
+                    text=f"Now configuring pin {pin+1}",
+                    bg = self._primary_colour
+            )
+            label.grid(
+                row=3 ,
+                column=0,
+                columnspan=self._column_amount-3,
+                padx=3,
+                pady=30
+            )
+            self._active_button_config_elements.append(label)
 
-        if self._board.__check_active_pin__(pin+1):
-            _selected_option = self._board.pin(pin+1)._output
-            _state_var = tk.BooleanVar(value=False)
-            if _selected_option:
-                output_radio = tk.Radiobutton(
-                    self._main_frame, 
-                    text="On",
-                    bg=self._primary_colour,
-                    variable=_state_var,
-                    value=True,
-                    command=lambda : self._change_state_of_pin(pin+1,True)
-                )
-                input_radio = tk.Radiobutton(
-                    self._main_frame, 
-                    text="Off",
-                    bg=self._primary_colour,
-                    variable=_state_var,
-                    value=False,
-                    command=lambda : self._change_state_of_pin(pin+1,False)
-                )
+            self._active_pin_selected = pin
+
+            if self._board.__check_active_pin__(pin+1):
+                _selected_option = self._board.pin(pin+1)._output
+                _state_var = tk.BooleanVar(value=False)
+                if _selected_option:
+                    # Output
+                    on_radio = tk.Radiobutton(
+                        self._main_frame, 
+                        text="On",
+                        bg=self._primary_colour,
+                        variable=_state_var,
+                        value=True,
+                        command=lambda : self._change_state_of_pin(pin+1,True)
+                    )
+                    off_radio = tk.Radiobutton(
+                        self._main_frame, 
+                        text="Off",
+                        bg=self._primary_colour,
+                        variable=_state_var,
+                        value=False,
+                        command=lambda : self._change_state_of_pin(pin+1,False)
+                    )
+                    on_radio.grid(row=4, column=8, padx=5, pady=5)
+                    off_radio.grid(row=5, column=8, padx=5, pady=5)
+                    
+                    self._active_button_config_elements.append(on_radio)
+                    self._active_button_config_elements.append(off_radio)
+                else:
+                    # Input
+                    pass
             else:
-                pass
-            output_radio.grid(row=4, column=8, padx=5, pady=5)
-            input_radio.grid(row=5, column=8, padx=5, pady=5)
-            
-            self._active_button_config_elements.append(output_radio)
-            self._active_button_config_elements.append(input_radio)
-        else:
-            output_button = tk.Button(
-                self._main_frame,
-                text= f"Setup pin {pin+1} for output",
-                bg = "red",
-                command=lambda : self._setup_pin(pin, True)
-            )
-            output_button.grid(row=4, column=5, columnspan=4)
-            input_button = tk.Button(
-                self._main_frame,
-                text= f"Setup pin {pin+1} for input",
-                bg="cyan",
-                command=lambda : self._setup_pin(pin, False)
-            )
-            input_button.grid(row=4, column=8, columnspan=4)
-            self._active_button_config_elements.append(output_button)
-            self._active_button_config_elements.append(input_button)
+                output_button = tk.Button(
+                    self._main_frame,
+                    text= f"Setup pin {pin+1} for output",
+                    bg = "red",
+                    command=lambda : self._setup_pin(pin, True)
+                )
+                output_button.grid(row=4, column=5, columnspan=4)
+                input_button = tk.Button(
+                    self._main_frame,
+                    text= f"Setup pin {pin+1} for input",
+                    bg="cyan",
+                    command=lambda : self._setup_pin(pin, False)
+                )
+                input_button.grid(row=4, column=8, columnspan=4)
+                self._active_button_config_elements.append(output_button)
+                self._active_button_config_elements.append(input_button)
 
     def _update_font(self):
         # Calculate font size based on the available space
