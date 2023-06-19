@@ -44,9 +44,7 @@ class PiGUI:
         self._column_amount = 20 # This is beacause of the 20 pins on each row
         self._max_row_length = 30
         self._buttons = []
-        self._button_states = [] # Button states
-        for _ in range(40):
-            self._button_states.append(tk.BooleanVar(value=False))
+        self._button_states = [False] * 40 
         self._current_pressed_button = None
         self._init_main_widgets() # Creates all the main widgets
 
