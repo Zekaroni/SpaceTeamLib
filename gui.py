@@ -195,6 +195,9 @@ class PiGUI:
     
     def _ready_pin_for_input(self, pinNumber):
         self._buttons[39-pinNumber].configure(bg="aquamarine")
+        self._pin_states_label.config(
+            text=f"Pin {pinNumber} -> Input : null"
+        )
 
     def _on_window_close(self):
         self._board.cleanup()
