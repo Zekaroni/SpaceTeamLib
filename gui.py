@@ -4,6 +4,8 @@ from piWrapper import Board
 
 class PiGUI:
     def __init__(self, board: Board):
+        # NOTE: When working with pins, the Board class expects true pin value (starts at 1), where this class uses true index (starts at 0)
+
         # Board config
         self._board = board
         
@@ -85,74 +87,73 @@ class PiGUI:
             self._main_frame.columnconfigure(i, weight=1)
 
     def _config_selected_pin(self, pin):
-        if self._active_pin_selected != pin:
-            if self._active_button_config_elements:
-                for obj in self._active_button_config_elements:
-                    obj.destroy()
-                self._active_button_config_elements.clear()
+        if self._active_button_config_elements:
+            for obj in self._active_button_config_elements:
+                obj.destroy()
+            self._active_button_config_elements.clear()
 
-            label = tk.Label(
-                    self._main_frame,
-                    text=f"Now configuring pin {pin+1}",
-                    bg = self._primary_colour
-            )
-            label.grid(
-                row=3 ,
-                column=0,
-                columnspan=self._column_amount-3,
-                padx=3,
-                pady=30
-            )
-            self._active_button_config_elements.append(label)
+        label = tk.Label(
+                self._main_frame,
+                text=f"Now configuring pin {pin+1}",
+                bg = self._primary_colour
+        )
+        label.grid(
+            row=3 ,
+            column=0,
+            columnspan=self._column_amount-3,
+            padx=3,
+            pady=30
+        )
+        self._active_button_config_elements.append(label)
 
-            self._active_pin_selected = pin
+        self._active_pin_selected = pin
 
-            if self._board.__check_active_pin__(pin+1):
-                _selected_option = self._board.pin(pin+1)._output
-                if _selected_option:
-                    # Output
-                    self._state_var = tk.BooleanVar(value=False)
-                    on_radio = tk.Radiobutton(
-                        self._main_frame, 
-                        text="On",
-                        bg=self._primary_colour,
-                        variable=self._state_var,
-                        value=True,
-                        command=lambda p=pin: self._change_state_of_pin(p+1,True)
-                    )
-                    off_radio = tk.Radiobutton(
-                        self._main_frame, 
-                        text="Off",
-                        bg=self._primary_colour,
-                        variable=self._state_var,
-                        value=False,
-                        command=lambda p=pin: self._change_state_of_pin(p+1,False)
-                    )
-                    on_radio.grid(row=4, column=8, padx=5, pady=5)
-                    off_radio.grid(row=5, column=8, padx=5, pady=5)
-                    
-                    self._active_button_config_elements.append(on_radio)
-                    self._active_button_config_elements.append(off_radio)
-                else:
-                    # Input
-                    pass
+        if self._board.__check_active_pin__(pin+1):
+            _selected_option = self._board.pin(pin+1)._output
+            if _selected_option:
+                # Output
+                self._state_var = tk.BooleanVar(value=False)
+                on_radio = tk.Radiobutton(
+                    self._main_frame, 
+                    text="On",
+                    bg=self._primary_colour,
+                    variable=self._state_var,
+                    value=True,
+                    command=lambda p=pin: self._change_state_of_pin(p,True)
+                )
+                off_radio = tk.Radiobutton(
+                    self._main_frame, 
+                    text="Off",
+                    bg=self._primary_colour,
+                    variable=self._state_var,
+                    value=False,
+                    command=lambda p=pin: self._change_state_of_pin(p,False)
+                )
+                on_radio.grid(row=4, column=8, padx=5, pady=5)
+                off_radio.grid(row=5, column=8, padx=5, pady=5)
+                
+                self._active_button_config_elements.append(on_radio)
+                self._active_button_config_elements.append(off_radio)
             else:
-                output_button = tk.Button(
-                    self._main_frame,
-                    text= f"Setup pin {pin+1} for output",
-                    bg = "red",
-                    command=lambda p=pin: self._setup_pin(p+1, True)
-                )
-                output_button.grid(row=4, column=5, columnspan=4)
-                input_button = tk.Button(
-                    self._main_frame,
-                    text= f"Setup pin {pin+1} for input",
-                    bg="cyan",
-                    command=lambda p=pin: self._setup_pin(p+1, False)
-                )
-                input_button.grid(row=4, column=8, columnspan=4)
-                self._active_button_config_elements.append(output_button)
-                self._active_button_config_elements.append(input_button)
+                # Input
+                pass
+        else:
+            output_button = tk.Button(
+                self._main_frame,
+                text= f"Setup pin {pin+1} for output",
+                bg = "red",
+                command=lambda p=pin: self._setup_pin(p, True)
+            )
+            output_button.grid(row=4, column=5, columnspan=4)
+            input_button = tk.Button(
+                self._main_frame,
+                text= f"Setup pin {pin+1} for input",
+                bg="cyan",
+                command=lambda p=pin: self._setup_pin(p, False)
+            )
+            input_button.grid(row=4, column=8, columnspan=4)
+            self._active_button_config_elements.append(output_button)
+            self._active_button_config_elements.append(input_button)
 
     def _update_font(self):
         # Calculate font size based on the available space
@@ -174,7 +175,7 @@ class PiGUI:
         self._config_selected_pin(pinNumber)
     
     def _change_state_of_pin(self, pinNumber, output):
-        localPin = self._board.pin(pinNumber)
+        localPin = self._board.pin(pinNumber+1)
         if output:
             localPin.turnOn()
             self._buttons[40-pinNumber].configure(bg="lime green")
