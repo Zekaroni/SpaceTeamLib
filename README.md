@@ -14,7 +14,7 @@ This is a wrapper for the GPIO on the RaspberryPi Model 3 B's used by the BRCTC 
     - [`printBannedPins`](#printbannedpins---none)
     - [`getCPUTemperature`](#getcputemperature---str)
     - [`cleanup`](#cleanup---none)
-  - [`Pin`](#pin-1)
+  - [`Pin`](#pin)
     - [`turnOn`](#turnon---none)
     - [`turnOff`](#turnoff---none)
     - [`read`](#read---bool)
