@@ -9,19 +9,21 @@ int main() {
     }
 
     const int servoPin = 18;
+    const int nativePulse = 2000;
 
     gpioSetMode(servoPin, PI_OUTPUT);
 
-    while (true) {
+    while (true)
+    {
         for (int angle = 0; angle <= 180; angle += 10)
         {
-            int pulseWidth = 500 + angle * 10;
+            int pulseWidth = nativePulse + angle * 10;
             gpioServo(servoPin, pulseWidth);
             time_sleep(0.5);
         };
         for (int angle = 180; angle >= 0; angle -= 10)
         {
-            int pulseWidth = 500 + angle * 10;
+            int pulseWidth = nativePulse + angle * 10;
             gpioServo(servoPin, pulseWidth);
             time_sleep(0.5);
         };
