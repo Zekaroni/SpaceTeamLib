@@ -1,11 +1,20 @@
-import time
 import picamera
+import time
 
-with picamera.PiCamera() as camera:
-    camera.resolution = (1024, 768)
-    camera.start_preview(fullscreen=False, window=(100,100,256,192))
-    time.sleep(2)
-    camera.preview.window=(200,200,256,192)
-    time.sleep(2)
-    camera.preview.window=(0,0,512,384)
-    time.sleep(2)
+# Initialize the PiCamera
+camera = picamera.PiCamera()
+
+try:
+    # Set camera resolution (optional, adjust as needed)
+    camera.resolution = (640, 480)
+
+    # Start the preview
+    camera.start_preview()
+
+    # Display the camera feed for 10 seconds (adjust as needed)
+    time.sleep(10)
+
+finally:
+    # Stop the preview and release the camera
+    camera.stop_preview()
+    camera.close()
