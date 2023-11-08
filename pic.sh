@@ -1,0 +1,1 @@
+sudo libcamera-jpeg -o image.jpg
